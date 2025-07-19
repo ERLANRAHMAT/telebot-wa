@@ -1,132 +1,157 @@
-const fs = require("fs")
-const path = require("path")
+const fs = require("fs");
+const path = require("path");
 
-const arrayMenu = [
-    'main', 'tools', 'downloader', 'fun', 'group', 'owner', 
-    'admin', 'premium', 'info', 'advanced'
-]
+let loadedCategories = {};
+let totalLoadedCommands = 0;
 
-const defaultMenu = {
-    before: `*${global.botname}*\n\nHi %name!\nI'm a Telegram Bot that can help you with various tasks.\n\n◦ *Uptime:* %uptime\n◦ *Date:* %date\n◦ *Time:* %time WIB\n`,
-    header: '╭─『 %category 』',
-    body: '│ ⌬ %cmd %islimit %ispremium',
-    footer: '╰────────࿐\n',
-    after: '*Note:* Type /help <category> for specific menu\nExample: /help tools'
-}
+const loadBotPlugins = () => {
+  const pluginDir = path.join(__dirname);
+  const plugins = [];
+  const categories = {};
+  let totalCommands = 0;
 
-const handler = async (m, { conn }) => {
-    const user = global.db.data.users[m.sender]
-    const isOwner = global.ownerid.includes(m.sender.toString())
-    const isPrems = global.premid.includes(m.sender.toString()) || user.premium || user.premiumTime > 0
-
-    const loadPlugins = () => {
-        const pluginDir = path.join(__dirname)
-        const plugins = []
-
-        fs.readdirSync(pluginDir).forEach((file) => {
-            if (file.endsWith(".js") && file !== "menu.js") {
-                try {
-                    delete require.cache[require.resolve(path.join(pluginDir, file))]
-                    const plugin = require(path.join(pluginDir, file))
-                    if (plugin.help && plugin.tags) {
-                        plugins.push(plugin)
-                    }
-                } catch (e) {
-                    console.error(`Error loading ${file}:`, e)
-                }
-            }
-        })
-
-        return plugins
+  fs.readdirSync(pluginDir).forEach((file) => {
+    if (file.endsWith(".js") && file !== "menu.js") {
+      try {
+        delete require.cache[require.resolve(path.join(pluginDir, file))];
+        const plugin = require(path.join(pluginDir, file));
+        if (plugin.help && plugin.tags) plugins.push(plugin);
+      } catch (e) {
+        console.error(`Error loading ${file}:`, e);
+      }
     }
+  });
 
-    const plugins = loadPlugins()
-    const categories = {}
-    let totalCommands = 0 // Initialize totalCommands here
-
-    plugins.forEach((plugin) => {
-        if (plugin.tags && plugin.help) {
-            plugin.tags.forEach((tag) => {
-                if (!categories[tag]) {
-                    categories[tag] = []
-                }
-                plugin.help.forEach((help) => {
-                    categories[tag].push(help)
-                    totalCommands++ // Increment for each command
-                })
-            })
-        }
-    })
-
-    const categoryNames = {
-        main: "🎯 MAIN",
-        tools: "⚙️ TOOLS",
-        downloader: "💫 DOWNLOADER",
-        fun: "🎪 FUN",
-        group: "👾 GROUP",
-        owner: "👤 OWNER",
-        admin: "🛡️ ADMIN",
-        premium: "⭐ PREMIUM",
-        info: "🎐 INFO",
-        advanced: "⚡ ADVANCED",
+  plugins.forEach((plugin) => {
+    if (plugin.tags && plugin.help) {
+      plugin.tags.forEach((tag) => {
+        if (!categories[tag]) categories[tag] = [];
+        plugin.help.forEach((help) => {
+          if (!categories[tag].includes(help)) {
+            categories[tag].push(help);
+            totalCommands++;
+          }
+        });
+      });
     }
+  });
 
-    let limitStatus = ""
-    if (isOwner) {
-        limitStatus = "♾️ Unlimited (Owner)"
-    } else if (isPrems) {
-        limitStatus = "♾️ Unlimited (Premium)"
+  loadedCategories = categories;
+  totalLoadedCommands = totalCommands;
+};
+
+loadBotPlugins();
+
+const categoryNames = {
+  main: "🎯 MAIN",
+  tools: "⚙️ TOOLS",
+  downloader: "💫 DOWNLOADER",
+  fun: "🎪 FUN",
+  group: "👾 GROUP",
+  owner: "👤 OWNER",
+  admin: "🛡️ ADMIN",
+  premium: "⭐ PREMIUM",
+  info: "🎐 INFO",
+  advanced: "⚡ ADVANCED",
+};
+
+const menuTemplate = {
+  header: '╭─『 %category 』',
+  body: '│ ⌬ %cmd %islimit %ispremium',
+  footer: '╰────────࿐\n',
+};
+
+const handler = async (m, { conn, args }) => {
+  const user = global.db.data.users[m.sender];
+  const isOwner = global.ownerid.includes(m.sender.toString());
+  const isPrems = global.premid.includes(m.sender.toString()) || user.premium || user.premiumTime > 0;
+
+  let d = new Date();
+  let locale = 'id';
+  let date = d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' });
+  let time = d.toLocaleTimeString(locale, { hour: 'numeric', minute: 'numeric' });
+  let uptime = clockString(process.uptime() * 1000);
+
+  const menuImage = "https://lann.pw/get-upload?id=uploader-api-1:1752838394888.jpg";
+
+  if (args[0]) {
+    const categoryArg = args[0].toLowerCase();
+    const foundCategory = Object.keys(loadedCategories).find(cat => cat.toLowerCase() === categoryArg);
+
+    if (foundCategory) {
+      const categoryDisplayName = categoryNames[foundCategory] || foundCategory.toUpperCase();
+      let categoryMenuText = menuTemplate.header.replace(/%category/g, categoryDisplayName) + '\n';
+
+      loadedCategories[foundCategory].forEach(cmd => {
+        categoryMenuText += menuTemplate.body
+          .replace(/%cmd/g, cmd)
+          .replace(/%islimit/g, '')
+          .replace(/%ispremium/g, '') + '\n';
+      });
+
+      categoryMenuText += menuTemplate.footer;
+      categoryMenuText += '\n*Note:* Kembali ke menu utama dengan */menu*';
+
+      return conn.sendMessage(m.chat, {
+        image: { url: menuImage },
+        caption: categoryMenuText,
+        parse_mode: 'Markdown'
+          }, { quoted: { message_id: m.id } })
     } else {
-        limitStatus = `${user?.limit || 0} (User)`
+      return conn.sendMessage(m.chat, {
+        text: `Kategori *"${args[0]}"* tidak ditemukan.\n\nKetik */menu* untuk melihat daftar kategori yang tersedia.`,
+        parse_mode: 'Markdown'
+          }, { quoted: { message_id: m.id } })
     }
+  }
 
-    let d = new Date()
-    let locale = 'id'
-    let date = d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })
-    let time = d.toLocaleTimeString(locale, { hour: 'numeric', minute: 'numeric' })
-    let uptime = clockString(process.uptime() * 1000)
+  let mainMenuText = `*${global.botname}*\n\nHi %name!\nI'm a Telegram Bot that can help you with various tasks.\n\n◦ *Uptime:* %uptime\n◦ *Date:* %date\n◦ *Time:* %time WIB\n\n`;
 
-    let menuText = defaultMenu.before
-        .replace(/%name/g, m.name)
-        .replace(/%uptime/g, uptime)
-        .replace(/%date/g, date)
-        .replace(/%time/g, time)
+  mainMenuText = mainMenuText
+    .replace(/%name/g, m.name)
+    .replace(/%uptime/g, uptime)
+    .replace(/%date/g, date)
+    .replace(/%time/g, time);
 
-    Object.keys(categories)
-        .sort()
-        .forEach(category => {
-            const categoryName = categoryNames[category] || category
-            menuText += defaultMenu.header.replace(/%category/g, categoryName) + '\n'
-            categories[category].forEach(cmd => {
-                menuText += defaultMenu.body
-                    .replace(/%cmd/g, cmd)
-                    .replace(/%islimit/g, '')
-                    .replace(/%ispremium/g, '') + '\n'
-            })
-            menuText += defaultMenu.footer
-        })
+  mainMenuText += '╭─『 *Kategori Perintah* 』\n';
 
-    menuText += `\n┌───『 *Statistics* 』───࿐\n`
-    menuText += `│ • Users: ${Object.keys(global.db.data.users).length}\n`
-    menuText += `│ • Commands: ${totalCommands}\n`
-    menuText += `└────────────࿐\n\n`
-    menuText += defaultMenu.after
+  const arrayMenu = Object.keys(categoryNames);
 
-    await conn.sendMessage(m.chat, {
-        image: { url: "https://lann.pw/get-upload?id=uploader-api-1:1752838394888.jpg" },
-        caption: menuText
-    }, { quoted: { message_id: m.id } })
-}
+  Object.keys(loadedCategories)
+    .sort((a, b) => {
+      const indexA = arrayMenu.indexOf(a);
+      const indexB = arrayMenu.indexOf(b);
+      if (indexA === -1 || indexB === -1) return 0;
+      return indexA - indexB;
+    })
+    .forEach(category => {
+      const categoryDisplayName = categoryNames[category] || category.toUpperCase();
+      mainMenuText += `│ ⌬ ${categoryDisplayName}\n`;
+    });
 
-handler.help = ["menu", "help"]
-handler.tags = ["main"]
-handler.command = /^(menu|help|\?)$/i
+  mainMenuText += '╰─────────────࿐\n\n';
+  mainMenuText += '┌───『 *Statistics* 』───࿐\n';
+  mainMenuText += `│ • Users: ${Object.keys(global.db.data.users).length}\n`;
+  mainMenuText += `│ • Commands: ${totalLoadedCommands}\n`;
+  mainMenuText += '└────────────࿐\n\n';
+  mainMenuText += '*Note:* Ketik */menu <kategori>* untuk detail perintah.\nContoh: */menu downloader*';
+
+  await conn.sendMessage(m.chat, {
+    image: { url: menuImage },
+    caption: mainMenuText,
+    parse_mode: 'Markdown'
+      }, { quoted: { message_id: m.id } })
+};
+
+handler.help = ["menu", "help"];
+handler.tags = ["main"];
+handler.command = /^(menu|help|\?)$/i;
 
 function clockString(ms) {
-    let h = Math.floor(ms / 3600000)
-    let m = Math.floor(ms / 60000) % 60
-    let s = Math.floor(ms / 1000) % 60
-    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
+  let h = Math.floor(ms / 3600000);
+  let m = Math.floor(ms / 60000) % 60;
+  let s = Math.floor(ms / 1000) % 60;
+  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':');
 }
 
-module.exports = handler
+module.exports = handler;
