@@ -1,0 +1,47 @@
+{
+  "users": {
+    "1087968824": {
+      "saldo": 0,
+      "exp": 136,
+      "level": 0,
+      "limit": 100,
+      "registered": false,
+      "premium": false,
+      "banned": false,
+      "premiumTime": 0,
+      "command": 0,
+      "commandTotal": 0,
+      "lastCmd": 0,
+      "chat": 8,
+      "chatTotal": 8,
+      "lastseen": 1752903881901,
+      "lastReset": "2025-07-19"
+    }
+  },
+  "chats": {
+    "-1002088219771": {
+      "isBanned": false,
+      "welcome": true,
+      "mute": false,
+      "sWelcome": "Selamat datang @user di grup @subject!",
+      "sBye": "Selamat tinggal @user!",
+      "autoDL": false
+    }
+  },
+  "stats": {
+    "menu.js": {
+      "total": 7,
+      "success": 6,
+      "last": 1752903881901,
+      "lastSuccess": 1752903881901
+    },
+    "internet-growgarden.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1752903579324,
+      "lastSuccess": 1752903579324
+    }
+  },
+  "msgs": {},
+  "sticker": {}
+}

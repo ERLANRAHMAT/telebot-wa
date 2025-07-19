@@ -1,0 +1,41 @@
+{
+  "name": "nodejs",
+  "version": "1.0.1",
+  "description": "Script made by Lann with telegraf",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot",
+    "lightweight",
+    "telegraf",
+    "telegram-bot-api",
+    "nodejs",
+    "javascript",
+    "bot",
+    "betabotz"
+  ],
+  "author": "Betabotz",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "chalk": "^3.0.0",
+    "didyoumean": "^1.2.2",
+    "express": "^5.1.0",
+    "file-type": "^16.5.3",
+    "form-data": "^4.0.4",
+    "human-readable": "^0.2.1",
+    "lodash": "^4.17.21",
+    "lowdb": "^2.1.0",
+    "moment-timezone": "^0.6.0",
+    "node-fetch": "^2.6.9",
+    "node-os-utils": "^1.3.7",
+    "syntax-error": "^1.4.0",
+    "telegraf": "^4.16.3",
+    "util": "^0.12.5",
+    "yt-search": "^2.13.1"
+  }
+}
