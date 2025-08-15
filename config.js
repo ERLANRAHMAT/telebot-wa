@@ -1,4 +1,4 @@
-global.token = "8310293199:AAGw_TNRVCjn89togdTqDH9X-JQXzQo3_m4"
+global.token = ""
 global.ownername = "betabotz" // sesuai username telegram
 global.ownerid = ["1344383547"] // jika lebih dari 1 owner maka isi disni
 global.premid = "1344383547"
@@ -30,8 +30,8 @@ global.limit = 100;
 
 // Apikey
 //INI WAJIB DI ISI!//
-global.lann = 'BtzApi' 
-global.aksesKey = 'BtzApis'
+global.lann = '' 
+global.aksesKey = ''
 //Daftar terlebih dahulu https://api.betabotz.eu.org
 
 global.APIs = {   
