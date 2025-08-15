@@ -143,9 +143,8 @@ const handler = async (m, { conn, args }) => {
       }, { quoted: { message_id: m.id } })
 };
 
-handler.help = ["menu", "help"];
+handler.help = handler.command = ["menu", "help", "start"];
 handler.tags = ["main"];
-handler.command = /^(menu|help|\?)$/i;
 
 function clockString(ms) {
   let h = Math.floor(ms / 3600000);

@@ -4,7 +4,7 @@
       "saldo": 0,
       "exp": 136,
       "level": 0,
-      "limit": 100,
+      "limit": 190,
       "registered": false,
       "premium": false,
       "banned": false,
@@ -12,14 +12,92 @@
       "command": 0,
       "commandTotal": 0,
       "lastCmd": 0,
-      "chat": 8,
-      "chatTotal": 8,
-      "lastseen": 1752903881901,
-      "lastReset": "2025-07-19"
+      "chat": 13,
+      "chatTotal": 13,
+      "lastseen": 1755216489287,
+      "lastReset": "2025-08-15"
+    },
+    "1344383547": {
+      "saldo": 0,
+      "exp": 226617,
+      "level": 0,
+      "limit": 160,
+      "registered": true,
+      "premium": false,
+      "banned": false,
+      "premiumTime": 0,
+      "command": 0,
+      "commandTotal": 0,
+      "lastCmd": 0,
+      "chat": 906,
+      "chatTotal": 906,
+      "lastseen": 1755227590371,
+      "lastReset": "2025-08-15",
+      "money": 203000,
+      "name": "lann",
+      "age": 19,
+      "regTime": 1755130607266,
+      "tiketcoin": 11,
+      "afk": -1,
+      "afkReason": ""
+    },
+    "1616516342": {
+      "saldo": 0,
+      "exp": 102,
+      "level": 0,
+      "limit": 130,
+      "registered": false,
+      "premium": false,
+      "banned": false,
+      "premiumTime": 0,
+      "command": 0,
+      "commandTotal": 0,
+      "lastCmd": 0,
+      "chat": 23,
+      "chatTotal": 23,
+      "lastseen": 1755217028061,
+      "lastReset": "2025-08-15"
+    },
+    "5524457173": {
+      "saldo": 0,
+      "exp": 30238,
+      "level": 0,
+      "limit": 130,
+      "registered": false,
+      "premium": false,
+      "banned": false,
+      "premiumTime": 0,
+      "command": 0,
+      "commandTotal": 0,
+      "lastCmd": 0,
+      "chat": 77,
+      "chatTotal": 77,
+      "lastseen": 1755225158055,
+      "lastReset": "2025-08-15",
+      "tiketcoin": null,
+      "money": null,
+      "afk": -1,
+      "afkReason": ""
     }
   },
   "chats": {
+    "1344383547": {
+      "isBanned": false,
+      "welcome": true,
+      "mute": false,
+      "sWelcome": "Selamat datang @user di grup @subject!",
+      "sBye": "Selamat tinggal @user!",
+      "autoDL": false
+    },
     "-1002088219771": {
+      "isBanned": false,
+      "welcome": true,
+      "mute": false,
+      "sWelcome": "Selamat datang @user di grup @subject!",
+      "sBye": "Selamat tinggal @user!",
+      "autoDL": false
+    },
+    "-1002871855662": {
       "isBanned": false,
       "welcome": true,
       "mute": false,
@@ -30,16 +108,460 @@
   },
   "stats": {
     "menu.js": {
-      "total": 7,
-      "success": 6,
-      "last": 1752903881901,
-      "lastSuccess": 1752903881901
+      "total": 48,
+      "success": 36,
+      "last": 1755225723411,
+      "lastSuccess": 1755225723411
     },
     "internet-growgarden.js": {
       "total": 3,
       "success": 3,
       "last": 1752903579324,
       "lastSuccess": 1752903579324
+    },
+    "owner-exec.js": {
+      "total": 271,
+      "success": 271,
+      "last": 1755227209981,
+      "lastSuccess": 1755227209981
+    },
+    "tools-getip.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1755072296214,
+      "lastSuccess": 1755072296214
+    },
+    "tools-getid.js": {
+      "total": 9,
+      "success": 9,
+      "last": 1755162798299,
+      "lastSuccess": 1755162798299
+    },
+    "tools-uploader.js": {
+      "total": 22,
+      "success": 22,
+      "last": 1755082207914,
+      "lastSuccess": 1755082207914
+    },
+    "tools-remini.js": {
+      "total": 18,
+      "success": 18,
+      "last": 1755215456458,
+      "lastSuccess": 1755215456458
+    },
+    "maker-jadianime.js": {
+      "total": 22,
+      "success": 22,
+      "last": 1755171639948,
+      "lastSuccess": 1755171639948
+    },
+    "downloader-douyin-tiktok.js": {
+      "total": 55,
+      "success": 55,
+      "last": 1755221435823,
+      "lastSuccess": 1755221435823
+    },
+    "maker-aiMusic.js": {
+      "total": 14,
+      "success": 11,
+      "last": 1755219647169,
+      "lastSuccess": 1755219166226
+    },
+    "downloader-ytmp3.js": {
+      "total": 21,
+      "success": 13,
+      "last": 1755168412040,
+      "lastSuccess": 1755168412040
+    },
+    "tools-say.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755119823758,
+      "lastSuccess": 1755119823758
+    },
+    "game-math.js": {
+      "total": 15,
+      "success": 15,
+      "last": 1755128958901,
+      "lastSuccess": 1755128958901
+    },
+    "game-lirik.js": {
+      "total": 7,
+      "success": 7,
+      "last": 1755141580744,
+      "lastSuccess": 1755141580744
+    },
+    "game-lirik_hint.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755141593890,
+      "lastSuccess": 1755141593890
+    },
+    "xp-profile.js": {
+      "total": 6,
+      "success": 6,
+      "last": 1755159310624,
+      "lastSuccess": 1755159310624
+    },
+    "xp-regist.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755130607267,
+      "lastSuccess": 1755130607267
+    },
+    "game-suit.js": {
+      "total": 6,
+      "success": 6,
+      "last": 1755158301904,
+      "lastSuccess": 1755158301904
+    },
+    "game-tebak_gambar1.js": {
+      "total": 9,
+      "success": 8,
+      "last": 1755141522561,
+      "lastSuccess": 1755141522561
+    },
+    "info-sc.js": {
+      "total": 4,
+      "success": 2,
+      "last": 1755131664177,
+      "lastSuccess": 1755131664177
+    },
+    "info-tqto.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1755222112642,
+      "lastSuccess": 1755222112642
+    },
+    "downloader-play.js": {
+      "total": 12,
+      "success": 12,
+      "last": 1755134469296,
+      "lastSuccess": 1755134469296
+    },
+    "downloader-gitclone.js": {
+      "total": 4,
+      "success": 3,
+      "last": 1755135563005,
+      "lastSuccess": 1755135563005
+    },
+    "downloader-ytv.js": {
+      "total": 16,
+      "success": 3,
+      "last": 1755141492644,
+      "lastSuccess": 1755138467863
+    },
+    "game-tebaklagu.js": {
+      "total": 5,
+      "success": 5,
+      "last": 1755215632136,
+      "lastSuccess": 1755215632136
+    },
+    "owner-exec2.js": {
+      "total": 4,
+      "success": 2,
+      "last": 1755139837807,
+      "lastSuccess": 1755139837807
+    },
+    "owner-getdb.js": {
+      "total": 8,
+      "success": 8,
+      "last": 1755223385589,
+      "lastSuccess": 1755223385589
+    },
+    "game-tebaklagu_hint.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755141640633,
+      "lastSuccess": 1755141640633
+    },
+    "tools-searchfitur.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755142017985,
+      "lastSuccess": 1755142017985
+    },
+    "tools-ss2code.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755142924352,
+      "lastSuccess": 1755142924352
+    },
+    "game-family100.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755155579519,
+      "lastSuccess": 1755155579519
+    },
+    "game-asahotak.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755155675436,
+      "lastSuccess": 1755155675436
+    },
+    "game-bomb.js": {
+      "total": 4,
+      "success": 3,
+      "last": 1755156070478,
+      "lastSuccess": 1755156070478
+    },
+    "game-dare.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1755156511991,
+      "lastSuccess": 1755156511991
+    },
+    "game-iqtest.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158074233,
+      "lastSuccess": 1755158074233
+    },
+    "game-kpop.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158085325,
+      "lastSuccess": 1755158085325
+    },
+    "game-kuis_kemerdekaan.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158155640,
+      "lastSuccess": 1755158155640
+    },
+    "game-siapakahaku.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158252812,
+      "lastSuccess": 1755158252812
+    },
+    "game-suitpvp.js": {
+      "total": 2,
+      "success": 0,
+      "last": 1755158331984,
+      "lastSuccess": 0
+    },
+    "game-tebak_ff.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158477438,
+      "lastSuccess": 1755158477438
+    },
+    "game-tebak_genshin.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158625054,
+      "lastSuccess": 1755158625054
+    },
+    "game-tebak_logo.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158765419,
+      "lastSuccess": 1755158765419
+    },
+    "game-tebak_pemain_bola.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158811617,
+      "lastSuccess": 1755158811617
+    },
+    "game-tebak_presiden.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158877838,
+      "lastSuccess": 1755158877838
+    },
+    "game-tebak_tokoh.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755158942943,
+      "lastSuccess": 1755158942943
+    },
+    "game-tebak_wallet.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755159007612,
+      "lastSuccess": 1755159007612
+    },
+    "game-tebakanime.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755159028362,
+      "lastSuccess": 1755159028362
+    },
+    "game-tebakbendera.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755159170731,
+      "lastSuccess": 1755159170731
+    },
+    "game-tebakheroml.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755159293461,
+      "lastSuccess": 1755159293461
+    },
+    "game-tebakhewan.js": {
+      "total": 2,
+      "success": 0,
+      "last": 1755159377118,
+      "lastSuccess": 0
+    },
+    "game-tebak-islami.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1755159752454,
+      "lastSuccess": 1755159752454
+    },
+    "game-tebakjenaka.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755159828394,
+      "lastSuccess": 1755159828394
+    },
+    "game-tebakjkt48.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755168815666,
+      "lastSuccess": 1755168815666
+    },
+    "game-tebakkalimat.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755160021771,
+      "lastSuccess": 1755160021771
+    },
+    "game-tebakkata.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755160024789,
+      "lastSuccess": 1755160024789
+    },
+    "game-tebakkimia.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755160882198,
+      "lastSuccess": 1755160882198
+    },
+    "game-tebakkode.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755160946924,
+      "lastSuccess": 1755160946924
+    },
+    "game-tebakmakanan.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755160998194,
+      "lastSuccess": 1755160998194
+    },
+    "game-tebakpokemon.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755161089127,
+      "lastSuccess": 1755161089127
+    },
+    "game-tebaktebakan.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755161301475,
+      "lastSuccess": 1755161301475
+    },
+    "game-tebaktempat.js": {
+      "total": 6,
+      "success": 4,
+      "last": 1755161659802,
+      "lastSuccess": 1755161659802
+    },
+    "game-tekateki.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755161886583,
+      "lastSuccess": 1755161886583
+    },
+    "game-tictactoe.js": {
+      "total": 14,
+      "success": 9,
+      "last": 1755163207802,
+      "lastSuccess": 1755163207802
+    },
+    "game-truth.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755163496880,
+      "lastSuccess": 1755163496880
+    },
+    "info-owner.js": {
+      "total": 20,
+      "success": 9,
+      "last": 1755227590371,
+      "lastSuccess": 1755227590371
+    },
+    "internet-heroml.js": {
+      "total": 44,
+      "success": 31,
+      "last": 1755219827312,
+      "lastSuccess": 1755218957451
+    },
+    "info-gempa.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755215375078,
+      "lastSuccess": 1755215375078
+    },
+    "tools-tmpmail.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1755219979187,
+      "lastSuccess": 1755219979187
+    },
+    "maker-imgedit.js": {
+      "total": 3,
+      "success": 1,
+      "last": 1755220178064,
+      "lastSuccess": 1755220178064
+    },
+    "owner-loadplugin.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1755221529796,
+      "lastSuccess": 1755221529796
+    },
+    "owner-sfp-df.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755221580509,
+      "lastSuccess": 1755221580509
+    },
+    "owner-getplugins.js": {
+      "total": 5,
+      "success": 5,
+      "last": 1755221658083,
+      "lastSuccess": 1755221658083
+    },
+    "info-server.js": {
+      "total": 5,
+      "success": 5,
+      "last": 1755222015179,
+      "lastSuccess": 1755222015179
+    },
+    "internet-kodepos.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755222086469,
+      "lastSuccess": 1755222086469
+    },
+    "_afk_afk.js": {
+      "total": 10,
+      "success": 7,
+      "last": 1755224814924,
+      "lastSuccess": 1755224814924
+    },
+    "info-ping.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1755223764494,
+      "lastSuccess": 1755223764494
     }
   },
   "msgs": {},

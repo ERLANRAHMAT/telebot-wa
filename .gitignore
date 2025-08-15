@@ -1,0 +1,14 @@
+# plugins/.gitignore
+# Ignore all plugin files       
+# Ignore node_modules directory
+node_modules/
+# Ignore log files
+*.log
+# Ignore temporary files
+*.tmp
+# Ignore compiled files
+*.js.map
+# Ignore configuration files
+package-lock.json
+.git
+database.json

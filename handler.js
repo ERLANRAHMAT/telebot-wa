@@ -10,6 +10,51 @@ function isRealError(error) {
   return error instanceof Error || (error && error.constructor && error.constructor.name === "Error")
 }
 
+function maskSecrets(rawText, { APIKeys = {}, aksesKey = {} } = {}) {
+  let text = String(rawText ?? '')
+  const knownSecrets = Array.from(new Set(
+    [...Object.values(APIKeys || {}), ...Object.values(aksesKey || {})]
+      .flat()
+      .filter(v => typeof v === 'string')
+      .map(v => v.trim())
+      .filter(v => v.length >= 6)
+  )).sort((a, b) => b.length - a.length)
+
+  const sensitiveFields = [
+    'apikey', 'api_key', 'access_key', 'accessToken', 'access_token', 'token',
+    'authorization', 'x-api-key', 'x_api_key', 'client_secret', 'clientSecret',
+    'secret', 'bearer', 'key', 'aksesKey', 'akses_key'
+  ]
+
+  const escapeRegex = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  for (const name of sensitiveFields) {
+    const n = escapeRegex(name)
+    text = text.replace(
+      new RegExp(`([?&])(${n})=([^&#\\s]*)`, 'gi'),
+      (_, pfx, field) => `${pfx}${field}=#HIDDEN#`
+    )
+    text = text.replace(
+      new RegExp(`(["']${n}["']\\s*:\\s*["'])([^"']+?)(["'])`, 'gi'),
+      `$1#HIDDEN#$3`
+    )
+    text = text.replace(
+      new RegExp(`(^|\\n)(${n})\\s*[:=]\\s*([^\\r\\n]+)`, 'gi'),
+      `$1$2: #HIDDEN#`
+    )
+  }
+  text = text.replace(
+    /(^|\n)(Authorization\s*:\s*Bearer\s+)([^\s\r\n]+)/gi,
+    `$1$2#HIDDEN#`
+  )
+  for (const secret of knownSecrets) {
+    const safe = escapeRegex(secret)
+    const re = new RegExp(`(?<=^|[\\s"'=:&?])${safe}(?=$|[\\s"'&?#])`, 'g')
+    text = text.replace(re, '#HIDDEN#')
+  }
+
+  return text
+}
+
 async function rlimit() {
   const now = moment().tz("Asia/Makassar")
   const resetTime = moment().tz("Asia/Makassar").startOf('day')
@@ -24,6 +69,8 @@ async function rlimit() {
     }
   }
 }
+// delay global declaration
+global.delay = delay;
 
 module.exports = {
   async handler(m) {
@@ -59,6 +106,8 @@ module.exports = {
         if (!isNumber(user.chat)) user.chat = 0
         if (!isNumber(user.chatTotal)) user.chatTotal = 0
         if (!isNumber(user.lastseen)) user.lastseen = 0
+        if (!isNumber(user.afk)) user.afk = -1
+        if (!'afkReason' in user) user.afkReason = ''
         if (!("lastReset" in user)) user.lastReset = moment().tz("Asia/Makassar").format('YYYY-MM-DD')
       } else {
         global.db.data.users[m.sender] = {
@@ -76,6 +125,8 @@ module.exports = {
           chat: 0,
           chatTotal: 0,
           lastseen: 0,
+          afk: -1,
+          afkReason: '',
           lastReset: moment().tz("Asia/Makassar").format('YYYY-MM-DD')
         }
       }
@@ -395,10 +446,6 @@ module.exports = {
                 console.error("Gagal kirim info limit:", e)
               }
             }
-
-
-
-
           } catch (e) {
 
             if (!isPrems && !isOwner && pluginData.limit && m.limit) {
@@ -409,7 +456,8 @@ module.exports = {
             if (isRealError(e)) {
               m.error = e
               console.error(`Plugin Error (${m.plugin}):`, e)
-              const text = util.format(e)
+              let text = util.format(e)
+              text = maskSecrets(text, { APIKeys, aksesKey: global.aksesKey })
               for (const ownerId of global.ownerid) {
                 try {
                   await this.reply(
@@ -568,7 +616,7 @@ module.exports = {
     }
   },
 }
-
+global.error = global.message.error;
 global.dfail = async (type, m, conn) => {
   const msg = global.message;
   [type]

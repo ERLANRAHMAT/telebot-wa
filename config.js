@@ -1,13 +1,17 @@
 global.token = ""
-global.ownername = ""
-global.ownerid = ""
-global.premid = ""
-global.botname = ""
+global.ownername = "betabotz" // sesuai username telegram
+global.ownerid = ["1344383547"] // jika lebih dari 1 owner maka isi disni
+global.premid = "1344383547"
+global.botname = "XiaoLann"
+global.owner = ["62895"] // untuk contact owner sesuaikan dengan ownerid
 global.prefix = ["/", ".", "#", "!"]
 global.wib = 7
 global.wait = "Tunggu Sebentar..."
 global.wm = "© Betabotz"
 // Message
+// Jangan diubah bagian ini 
+global.MAX_CAPTION_LENGTH = 3900;
+// Ini boleh diubah sesuai kebutuhan
 global.message = {
     rowner: "Perintah ini hanya dapat digunakan oleh _*OWNER!*_",
     owner: "Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!",
@@ -27,6 +31,7 @@ global.limit = 100;
 // Apikey
 //INI WAJIB DI ISI!//
 global.lann = '' 
+global.aksesKey = ''
 //Daftar terlebih dahulu https://api.betabotz.eu.org
 
 global.APIs = {   
