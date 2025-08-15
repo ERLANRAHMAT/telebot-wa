@@ -618,10 +618,10 @@ module.exports = {
 }
 global.error = global.message.error;
 global.dfail = async (type, m, conn) => {
-  const msg = global.message;
-  [type]
-  if (msg) return await m.reply(msg)
+  const msg = global.message?.[type] || "Perintah ini tidak bisa digunakan di sini."
+  return await m.reply(msg)
 }
+
 
 const file = require.resolve(__filename)
 fs.watchFile(file, () => {
