@@ -1,6 +1,5 @@
-# Telegram Bot with Telegraf
-
-A powerful Telegram bot built with Telegraf framework featuring modular plugin system and database management.
+# Betabotz Telegram Bot v2 
+Telegram bot yang dibuat menggunakan library telegraf dengan system plugins mirip seperti botwa berbasis CJS 
 
 ## 🚀 Getting Started
 
@@ -31,25 +30,37 @@ npm install
 ```javascript
 global.token = "YOUR_BOT_TOKEN"
 ```
-
 4. Start the bot
 ```bash
 npm start
 ```
 
+5. Configuration Owner
+- Get your id and username owner from command `/getid`
+- Copy your id and username , and then paste your id & username:
+```javascript
+global.ownerid = ["your id"]
+global.premid = ["your id"]
+global.ownername = ["your username"]
+global.owner = ["your phone number"]
+```
+
 ## 🔑 API Configuration
 
-### Available Plans & Pricing
+### Apikey Available Plans & Pricing
 
-| Plan     | Daily Limit | Duration | Price (IDR) |
+| Plan     | Limit | Duration | Price (IDR) |
 |----------|------------|----------|-------------|
 | Free     | 30         | Forever  | Free        |
-| Basic    | 3000       | 1 Month  | 3,000      |
+| Cheap1   | 3000       | 1 Month  | 3,000      |
+| Cheap2   | 4000       | 1 Month  | 4,000      |
 | Premium  | 5000       | 1 Month  | 5,000      |
-| VIP      | 8000       | 2 Months | 8,000      |
-| SUPREME  | 20000      | 4 Months | 20,000     |
+| Vip      | 8000       | 2 Months | 8,000      |
+| Vvip      | 12000    | 3 Months  | 12,000     |
+| Supreme  | 20000      | 4 Months | 20,000     |
 
 ### Getting API Key
+`Full Plans: https://api.betabotz.eu.org/price#apikey`
 
 1. Register at [BetaBotz API](https://api.betabotz.eu.org)
 2. Choose your plan and click "Buy Now"
@@ -60,9 +71,28 @@ npm start
 global.APIs = {   
   lann: 'https://api.betabotz.eu.org',
 }
-global.APIKeys = { 
-  'https://api.betabotz.eu.org': 'YOUR_API_KEY_HERE'
-}
+global.lann = 'your apikey'
+```
+
+### AksesKey Available Plans & Pricing
+
+| Plan     |  Limit | Duration | Price (IDR) |
+|----------|------------|----------|-------------|
+| Basic V1    | 5000       | 1 Month  | 5,000      |
+| Premium V2  | 10000       | 2 Month  | 10,000      |
+| Starter V1  | 15000       | 1 Months | 15,000      |
+| Starter V2  | 30000      | 2 Months | 30,000     |
+
+### Getting AksesKey
+`Full Plans: https://api.betabotz.eu.org/price#akses`
+
+1. Register at [BetaBotz API](https://api.betabotz.eu.org)
+2. Choose your plan and click "Buy Now"
+3. After payment, you'll receive your AksesKey
+4. Configure your API key in `config.js`:
+
+```javascript
+global.aksesKey = 'your aksesKey'
 ```
 
 ### Whitelist Your Bot IP
@@ -75,10 +105,14 @@ global.APIKeys = {
 
 ### Node.js Requirements
 
-This bot requires Node.js v20 or higher. Recommended hosting options:
+This bot requires **Node.js v20 or higher**. Recommended hosting options:
+
 - VPS with Node.js 20+
+- Panel with Node.js 20+
 - Managed Node.js hosting
 - Heroku with Node.js 20+ buildpack
+
+If you need reliable hosting, you can purchase it at [Click Here](https://api.betabotz.eu.org/price#panel)
 
 ### Additional Information
 
@@ -146,37 +180,20 @@ module.exports = handler
 
 - `conn` - Bot connection object
   - conn.sendMessage() - Send message
+  - conn.sendFile() - Send file 
   - conn.sendPhoto() - Send photo
   - conn.sendDocument() - Send file
 
-## 📋 Features
+## 🙏 Special Thanks
+With this, I would like to express my gratitude to:
 
-### Database System
-- Uses JSON file-based database
-- Stores user data and chat settings
-- Auto-saves changes
-- Limit system for commands
+- **Erlan (Betabotz)**
+- **Dreamliner21 (Paull)**
+- **Danaputra**
+- **Botcahx (Tio)**
+- And everyone who has contributed to the development of this bot.
 
-### User Levels
-- Normal users
-- Premium users
-- Admin users
-- Owner access
-
-### Command Limits
-- Default: 30 commands per day
-- Premium: Unlimited
-- Auto reset daily
-
-## 🛠️ Configuration
-
-Edit `config.js` to customize:
-- Bot name
-- Owner details
-- Command prefix
-- API keys
-- Message templates
-- Limit settings
+Thank you so much for your support and contributions! 🚀
 
 ## 📝 License
 
