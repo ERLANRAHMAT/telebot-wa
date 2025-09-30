@@ -1,13 +1,13 @@
 global.token = ""
-global.ownername = "betabotz" // sesuai username telegram
+global.ownername = "pannjs" // sesuai username telegram
 global.ownerid = ["1344383547"] // jika lebih dari 1 owner maka isi disni
 global.premid = "1344383547"
-global.botname = "XiaoLann"
-global.owner = ["628954231835277", "628954231835287", "62895423183527"] // untuk contact owner sesuaikan dengan ownerid
+global.botname = "Takina-TeleBot"
+global.owner = ["6288246327669"] // untuk contact owner sesuaikan dengan ownerid
 global.prefix = ["/", ".", "#", "!"]
 global.wib = 7
 global.wait = "Tunggu Sebentar..."
-global.wm = "© Betabotz"
+global.wm = "© pannjs | 2024-2025"
 // Message
 // Jangan diubah bagian ini 
 global.MAX_CAPTION_LENGTH = 3900;
