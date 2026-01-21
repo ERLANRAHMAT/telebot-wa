@@ -17,7 +17,11 @@ const handler = async (m, { conn }) => {
   }
 
   const regDate = new Date(user.regTime)
-  const sn = require("crypto").createHash("md5").update(m.sender.toString()).digest("hex")
+  const sn = require("crypto").createHash("md5")
+      .update(m.sender.toString())
+      .digest("hex")
+      .slice(0, 25)
+      .toUpperCase()
 
   const profileText = `👤 *PROFILE INFORMATION*
 
