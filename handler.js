@@ -2,6 +2,7 @@ const fs = require("fs")
 const util = require("util")
 const chalk = require("chalk")
 const moment = require("moment-timezone")
+const { Canvafy } = require("canvafy")
 
 const isNumber = (x) => typeof x === "number" && !isNaN(x)
 const delay = (ms) => isNumber(ms) && new Promise((resolve) => setTimeout(resolve, ms))
@@ -541,6 +542,14 @@ module.exports = {
     try {
       await global.loadDatabase()
 
+      let Canvafy
+      try {
+        Canvafy = require("canvafy")
+      } catch (e) {
+        console.error("Failed to load Canvafy:", e)
+        Canvafy = null
+      }
+
       let chatId, userId, userName, status, chatTitle, eventType = null
 
       if (ctx.myChatMember) {
@@ -566,51 +575,127 @@ module.exports = {
 
           const chat = global.db.data.chats[chatId] || {}
           if (chat.welcome) {
-            let text = (chat.sWelcome || "Selamat datang @user di grup @subject!")
-              .replace("@user", userName)
-              .replace("@subject", chatTitle)
+            // let text = (chat.sWelcome || "Selamat datang @user di grup @subject!")
+            //   .replace("@user", userName)
+            //   .replace("@subject", chatTitle)
 
             try {
-              await this.sendMessage(chatId, { text: text }, { quoted: null })
+              // await this.sendMessage(chatId, { text: text }, { quoted: null })
+              let profilePicUrl = "https://cdn.discordapp.com/embed/avatars/0.png"
+              try {
+                const userProfilePhotos = await this.telegram.getUserProfilePhotos(userId)
+                if (userProfilePhotos && userProfilePhotos.total_count > 0) {
+                  const field = userProfilePhotos.photos[0][0].file_id
+                  const file = await this.telegram.getFile(field)
+                  profilePicUrl = `https://api.telegram.org/file/bot${this.token}/${file.file_path}`
+                }
+              } catch (e) {
+                console.error("Failed to get profile picture:", e)
+              }
+              
+              const welcomeCard = await new Canvafy.WelcomeLeave()
+                .setAvatar(profilePicUrl)
+                .setBackground("image", "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=675")
+                .setTitle("Selamat Datang!")
+                .setDescription(`${userName} telah bergabung ke ${chatTitle}`)
+                .setBorder("#2a2a2a")
+                .setAvatarBorder("#2a2a2a")
+                .setOverlayOpacity(0.3)
+                .build();
 
+                let mention = member.username ? `@${member.username}` : `[${member.username}](tg://user?id=${userId})`;
+
+                let text = (chat.sWelcome || "Selamat datang @user di grup @subject!")
+                  .replace("@user", mention)
+                  .replace("@subject", chatTitle)
+
+                  const wlcm = await this.sendMessage(chatId, {
+                    photo: welcomeCard,
+                    caption: text,
+                    parse_mode: "Markdown"
+                  }, { quoted: null });
+                  await this.sendMessage(chatId, {
+                    audio: fs.createReadStream("./media/welcome.mp3"),
+                    title: `Welcome ${userName}`,
+                    performer: chatTitle,
+                    caption: `Selamat datang ${mention} di ${chatTitle}!`,
+                    thumbnail: welcomeCard
+                  }, { quoted: wlcm });
+                
             } catch (e) {
               console.error("Error sending welcome message:", e)
+              await this.sendMessage(chatId, {
+                    text: text
+                  }, { quoted: null });
             }
           }
         }
         return
       } else if (ctx.message && ctx.message.left_chat_member) {
         chatId = ctx.chat.id
-        userId = ctx.message.left_chat_member.id
-        userName = ctx.message.left_chat_member.first_name || ctx.message.left_chat_member.username || "Unknown"
+        const member = ctx.message.left_chat_member
+        userId = member.id
+        userName = member.first_name || member.username || "Unknown"
         chatTitle = ctx.chat.title || "Unknown Group"
         eventType = "leave"
-      }
 
       if (!chatId || !userId || !eventType) return
 
       const chat = global.db.data.chats[chatId] || {}
-      if (!chat.welcome) return
-
-      let text = ""
-
-      if (eventType === "join") {
-        text = (chat.sWelcome || "Selamat datang @user di grup @subject!")
-          .replace("@user", userName)
-          .replace("@subject", chatTitle)
-      } else if (eventType === "leave") {
-        text = (chat.sBye || "Selamat tinggal @user!")
-          .replace("@user", userName)
-          .replace("@subject", chatTitle)
-      }
-
-      if (text) {
+      if (chat.welcome) {
         try {
-          await this.sendMessage(chatId, { text: text }, { quoted: null })
+          let profilePicUrl = "https://cdn.discordapp.com/embed/avatars/0.png"
+          try {
+            const profilePhotos = await ctx.telegram.getUserProfilePhotos(userId)
+            if (profilePhotos && profilePhotos.total_count > 0) {
+              const fileId = profilePhotos.photos[0][0].file_id
+              const file = await ctx.telegram.getFile(fileId)
+              profilePicUrl =  `https://api.telegram.org/file/bot${this.token}/${file.file_path}`
+            }
+          } catch { 
+            console.log("using deaful avatar")
+          }
+          
+          const goodbyeCard = await new Canvafy.WelcomeLeave()
+                .setAvatar(profilePicUrl)
+                .setBackground("image", "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=675")
+                .setTitle("Selamat DTinggal!")
+                .setDescription(`${userName} telah meninggalkan ${chatTitle}`)
+                .setBorder("#2a2a2a")
+                .setAvatarBorder("#2a2a2a")
+                .setOverlayOpacity(0.3)
+                .build();
+
+                let mention = member.username ? `@${member.username}` : `[${member.username}](tg://user?id=${userId})`;
+
+                let text = (chat.sBye || "Selamat tinggal @user")
+                  .replace("@user", mention)
+
+                  const leav = await this.sendMessage(chatId, {
+                    photo: goodbyeCard,
+                    caption: text,
+                    parse_mode: "Markdown"
+                  }, { quoted: null });
+                  await this.sendMessage(chatId, {
+                    audio: fs.createReadStream("./media/leave.mp3"),
+                    title: `GoodBye ${userName}`,
+                    performer: chatTitle,
+                    caption: `Selamat tinggal ${mention} di ${chatTitle}!`,
+                    thumbnail: goodbyeCard
+                  }, { quoted: leav });
         } catch (e) {
-          console.error("Error sending participant update message:", e)
+          console.error("Error Creating goodbye card")
+          
+          let mention = member.username ? `@${member.username}` : `[${member.username}](tg://user?id=${userId})`;
+
+                let text = (chat.sBye || "Selamat tinggal @user")
+                  .replace("@user", mention)
+                  await this.sendMessage(chatId, {
+                    text: text
+                  }, { quoted: null })
         }
       }
+    }
     } catch (e) {
       console.error("Error in participantsUpdate:", e)
     }
