@@ -21,6 +21,7 @@
   "author": "Betabotz",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^1.45.0",
     "axios": "^1.10.0",
     "canvafy": "^7.2.1",
     "canvas": "^3.2.1",
@@ -35,11 +36,13 @@
     "moment-timezone": "^0.6.0",
     "node-fetch": "^2.6.9",
     "node-os-utils": "^1.3.7",
+    "node-schedule": "^2.1.1",
     "sharp": "^0.34.5",
     "similarity": "^1.2.1",
     "syntax-error": "^1.4.0",
     "telegraf": "^4.16.3",
     "util": "^0.12.5",
+    "wa-sticker-formatter": "^4.4.4",
     "yt-search": "^2.13.1"
   }
 }
